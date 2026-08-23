@@ -1,3 +1,5 @@
 #SPDX-License-Identifier: MIT-0
----
 # defaults file for apache
+---
+apache_port: 80
+server_admin: admin@example.com

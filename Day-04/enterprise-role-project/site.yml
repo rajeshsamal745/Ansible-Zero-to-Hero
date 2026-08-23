@@ -1,0 +1,8 @@
+---
+- name: Configure web servers
+  hosts: web
+  become: true
+  roles:
+    - apache
+  post_tasks:
+    - import_tasks: roles/apache/tasks/validate.yml

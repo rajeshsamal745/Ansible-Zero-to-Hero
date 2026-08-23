@@ -1,0 +1,22 @@
+---
+- name: Gather service facts
+  ansible.builtin.service_facts:
+
+- name: Verify Apache service is running
+  ansible.builtin.assert:
+    that:
+      - ansible_facts.services["{{ apache_service }}.service"].state == "running"
+    fail_msg: "Apache service is not running"
+    success_msg: "Apache service is running"
+
+- name: Verify Apache configuration is valid
+  ansible.builtin.command: apache2ctl configtest
+  register: config_test
+  changed_when: false
+  failed_when: config_test.rc != 0
+
+- name: Verify HTTP response (200 OK)
+  ansible.builtin.uri:
+    url: "http://localhost:{{ apache_port }}"
+    status_code: 200
+  register: http_response
