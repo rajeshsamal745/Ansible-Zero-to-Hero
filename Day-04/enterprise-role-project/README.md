@@ -4,7 +4,7 @@ This project automates the deployment and management of Apache HTTP Server on tw
 ✅ Handler‑driven service restarts – Apache is restarted only when configuration changes.
 ✅ Failure recovery – automatically recreates deleted files (e.g., index.html).
 ✅ Validation tasks – verify service status, config syntax, and HTTP responses.
-✅ Rolling updates with serial: 1 to limit blast radius in production.
+✅ Rolling updates with serial: 1 to limit blast radius in production
 
 This repository serves as a portfolio piece demonstrating infrastructure as code, configuration management best practices, and DevOps engineering skills.
 🏗️ Architecture
