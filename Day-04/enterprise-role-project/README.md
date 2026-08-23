@@ -102,33 +102,23 @@ Run the same command again. You should see changed=0 for all tasks, proving that
 🧪 Key Features Demonstrated
 ✅ Idempotent Configuration
 The role uses state: present, template with diff, and service with state: started – all are idempotent by design.
-
 ✅ Handler‑Driven Restarts
 When the Apache configuration template changes, a notify triggers the handler, which restarts Apache only if necessary.
-
 A second run with no configuration changes does not restart Apache.
-
 ✅ Recovery from Accidental Deletion
 Simulate a failure: sudo rm /var/www/html/index.html on one node.
-
 Rerunning the playbook recreates the file, restoring the service without manual intervention.
-
 ✅ Rolling Updates (serial: 1)
 The playbook uses serial: 1 to update one server at a time.
-
 Production‑grade – if one node fails, the other remains unaffected, minimising downtime.
-
 ✅ Automated Validation
 After each host deployment, the validate.yml tasks run to:
-
 Verify that the apache2 service is running.
 Run apache2ctl configtest to ensure syntax is valid.
 Send an HTTP request to localhost to confirm a 200 OK response.
 This ensures the deployment is fully functional before moving to the next host.
-
 ✅ Failure Handling & Recovery
 We deliberately introduce an invalid directive in apache.conf.j2 to see the playbook fail.
-
 After fixing the template, the playbook succeeds – demonstrating how to handle configuration errors in a controlled manner.
 
 📝 How to Run the Validation Separately
@@ -221,3 +211,5 @@ Implement canary deployments using load balancer logic.
 📬 Connect
 GitHub: https://github.com/rajeshsamal745
 Email:rajeshsamal745@gmail.com
+
+
