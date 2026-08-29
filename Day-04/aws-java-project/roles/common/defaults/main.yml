@@ -1,0 +1,9 @@
+#SPDX-License-Identifier: MIT-0
+---
+# defaults file for roles/common
+app_user: abcapp
+app_group: abcapp
+app_root: /opt/abc-order-service
+app_config_dir: /etc/abc-order-service
+app_log_dir: /var/log/abc-order-service
+server_timezone: Asia/Kolkata

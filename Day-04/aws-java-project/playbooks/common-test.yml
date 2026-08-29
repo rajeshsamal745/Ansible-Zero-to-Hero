@@ -1,0 +1,7 @@
+---
+- name: Test common role
+  hosts: app_servers
+  become: true
+
+  roles:
+    - common
