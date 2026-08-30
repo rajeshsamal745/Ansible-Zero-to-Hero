@@ -1,0 +1,21 @@
+# ====================================================================
+# Hardened SSH Daemon Configuration Template
+# ====================================================================
+
+# Network Port Binding
+Port {{ ssh_port }}
+
+# Authentication Policy Restraints
+PermitRootLogin {{ ssh_permit_root_login }}
+PasswordAuthentication {{ ssh_password_authentication }}
+
+# Crucial Guard Rules (Prevents Ansible Lockouts)
+PubkeyAuthentication yes
+AuthorizedKeysFile .ssh/authorized_keys .ssh/authorized_keys2
+
+# CRUCIAL LINE FOR AWS: Imports standard public key verification hooks
+Include /etc/ssh/sshd_config.d/*.conf
+
+# Operational Subsystems
+Subsystem sftp /usr/lib/openssh/sftp-server
+

@@ -1,3 +1,5 @@
 #SPDX-License-Identifier: MIT-0
 ---
 # defaults file for roles/java
+java_package: openjdk-17-jdk
+java_home: /usr/lib/jvm/java-17-openjdk-amd64

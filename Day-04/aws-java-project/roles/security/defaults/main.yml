@@ -1,3 +1,6 @@
 #SPDX-License-Identifier: MIT-0
 ---
 # defaults file for roles/security
+ssh_port: 22
+ssh_permit_root_login: "no"
+ssh_password_authentication: "no"
