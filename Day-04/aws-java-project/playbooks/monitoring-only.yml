@@ -1,0 +1,6 @@
+---
+- name: Run only monitoring role
+  hosts: app_servers
+  become: true
+  roles:
+    - monitoring

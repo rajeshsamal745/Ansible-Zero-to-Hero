@@ -1,3 +1,5 @@
 #SPDX-License-Identifier: MIT-0
 ---
 # defaults file for roles/monitoring
+cloudwatch_agent_package: amazon-cloudwatch-agent
+cloudwatch_config_path: /opt/aws/amazon-cloudwatch-agent/etc/amazon-cloudwatch-agent.json

@@ -1,3 +1,21 @@
 #SPDX-License-Identifier: MIT-0
 ---
 # defaults file for roles/application
+app_name: abc-order-service
+app_version: "1.0"
+deployment_environment: dev
+app_user: abcapp
+app_group: abcapp
+
+app_root: /opt/abc-order-service
+app_config_dir: /etc/abc-order-service
+app_log_dir: /var/log/abc-order-service
+
+app_port: 8080
+
+app_java_opts: "-Xms256m -Xmx512m"
+
+s3_bucket: abc-enterprise-artifacts-2026-raj
+s3_artifact_key: "order-service/{{ app_version }}/order-service.jar"
+
+app_jar: "{{ app_root }}/order-service.jar"

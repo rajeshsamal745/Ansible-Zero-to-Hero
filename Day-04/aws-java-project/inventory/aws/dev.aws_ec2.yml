@@ -1,0 +1,33 @@
+---
+plugin: amazon.aws.aws_ec2
+
+regions:
+  - ap-southeast-2
+
+filters:
+  instance-state-name: running
+
+groups:
+  app_servers: >
+    tags.Environment == 'dev'
+    and tags.Application == 'order-service'
+    and tags.Role == 'app'
+
+keyed_groups:
+  - key: tags.Environment
+    prefix: environment
+    separator: "_"
+
+  - key: tags.Application
+    prefix: application
+    separator: "_"
+
+  - key: tags.Role
+    prefix: role
+    separator: "_"
+
+hostnames:
+  - ip-address
+
+compose:
+  ansible_host: public_ip_address

@@ -1,0 +1,19 @@
+[Unit]
+Description=ABC Order Management Service
+After=network.target
+
+[Service]
+Type=simple
+
+User={{ app_user }}
+Group={{ app_group }}
+
+WorkingDirectory={{ app_root }}
+
+ExecStart=/usr/bin/java {{ app_java_opts }} -jar {{ app_jar }}
+
+Restart=on-failure
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

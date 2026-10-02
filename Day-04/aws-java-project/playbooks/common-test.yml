@@ -7,3 +7,6 @@
     - common
     - security
     - java
+    - application
+    - nginx
+    - monitoring

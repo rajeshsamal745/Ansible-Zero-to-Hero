@@ -1,0 +1,4 @@
+---
+deployment_environment: prod
+app_version: "1.0"
+app_java_opts: "-Xms1024m -Xmx2048m"

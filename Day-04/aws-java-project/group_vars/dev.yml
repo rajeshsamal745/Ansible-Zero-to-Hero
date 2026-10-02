@@ -1,0 +1,4 @@
+---
+deployment_environment: dev
+app_version: "1.0"
+app_java_opts: "-Xms256m -Xmx512m"

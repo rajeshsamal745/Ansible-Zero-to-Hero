@@ -1,3 +1,54 @@
-#SPDX-License-Identifier: MIT-0
 ---
-# tasks file for roles/application
+- name: Download application artifact
+  ansible.builtin.command:
+    cmd: >
+      aws s3 cp
+      s3://{{ s3_bucket }}/{{ s3_artifact_key }}
+      {{ app_jar }}
+  register: artifact_download
+  changed_when: artifact_download.rc == 0
+  notify:
+    - Restart application
+
+- name: Set application artifact ownership
+  ansible.builtin.file:
+    path: "{{ app_jar }}"
+    owner: "{{ app_user }}"
+    group: "{{ app_group }}"
+    mode: "0755"
+
+- name: Deploy application properties
+  ansible.builtin.template:
+    src: application.properties.j2
+    dest: "{{ app_properties_file }}"
+    owner: "{{ app_user }}"
+    group: "{{ app_group }}"
+    mode: "0644"
+  notify:
+    - Restart application
+
+- name: Deploy application systemd service
+  ansible.builtin.template:
+    src: abc-order-service.service.j2
+    dest: "{{ app_service_file }}"
+    owner: root
+    group: root
+    mode: "0644"
+  notify:
+    - Restart application
+
+- name: Enable and start application
+  ansible.builtin.systemd:
+    name: "{{ app_service_name }}"
+    state: started
+    enabled: true
+    daemon_reload: true
+
+- name: Check application health
+  ansible.builtin.uri:
+    url: "http://127.0.0.1:{{ app_port }}/health"
+    status_code: 200
+  register: health_result
+  retries: 10
+  delay: 5
+  until: health_result.status == 200

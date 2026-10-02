@@ -1,0 +1,6 @@
+---
+deployment_environment: qa
+
+app_version: "1.0"
+
+app_java_opts: "-Xms512m -Xmx1024m"

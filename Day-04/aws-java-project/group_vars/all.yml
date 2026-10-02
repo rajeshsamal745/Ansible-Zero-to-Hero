@@ -1,0 +1,8 @@
+---
+deployment_environment: dev
+app_name: abc-order-service
+app_port: 8080
+app_user: abcapp
+app_group: abcapp
+app_root: /opt/abc-order-service
+s3_bucket: abc-enterprise-artifacts-2026-raj

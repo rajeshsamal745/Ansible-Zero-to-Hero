@@ -1,3 +1,8 @@
 #SPDX-License-Identifier: MIT-0
 ---
 # handlers file for roles/application
+- name: Restart application
+  ansible.builtin.systemd:
+    name: "{{ app_service_name }}"
+    state: restarted
+    daemon_reload: true

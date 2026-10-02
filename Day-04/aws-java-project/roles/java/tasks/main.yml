@@ -1,11 +1,15 @@
-#SPDX-License-Identifier: MIT-0
+# SPDX-License-Identifier: MIT
 ---
 # tasks file for roles/java
+
 - name: Install Java
   ansible.builtin.apt:
     name: "{{ java_package }}"
     state: present
     update_cache: true
+  tags:
+    - java
+    - install
 
 - name: Configure JAVA_HOME
   ansible.builtin.template:
@@ -14,14 +18,22 @@
     owner: root
     group: root
     mode: "0644"
+  tags:
+    - java
+    - configure
 
 - name: Check Java version
   ansible.builtin.command:
     cmd: java -version
   register: java_version
   changed_when: false
+  tags:
+    - java
+    - validate
 
 - name: Display Java version
   ansible.builtin.debug:
     var: java_version.stderr
-
+  tags:
+    - java
+    - validate

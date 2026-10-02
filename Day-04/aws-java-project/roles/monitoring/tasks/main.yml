@@ -1,3 +1,31 @@
-#SPDX-License-Identifier: MIT-0
+#SPDX-License-Identifier: 
 ---
 # tasks file for roles/monitoring
+- name: Download official AWS CloudWatch Agent installer package
+  ansible.builtin.get_url:
+    url: "https://amazoncloudwatch-agent.s3.amazonaws.com/ubuntu/amd64/latest/amazon-cloudwatch-agent.deb"
+    dest: "/tmp/amazon-cloudwatch-agent.deb"
+    mode: "0644"
+    force: true
+
+- name: Install CloudWatch Agent package
+  ansible.builtin.apt:
+    deb: "/tmp/amazon-cloudwatch-agent.deb"
+    state: present
+
+- name: Deploy CloudWatch Agent configuration mapping
+  ansible.builtin.template:
+    src: cloudwatch-agent.json.j2
+    dest: "{{ cloudwatch_config_path }}"
+    owner: root
+    group: root
+    mode: "0644"
+  notify:
+    - Restart CloudWatch Agent
+
+- name: Ensure CloudWatch Agent is enabled and active
+  ansible.builtin.systemd:
+    name: amazon-cloudwatch-agent
+    state: started
+    enabled: true
+

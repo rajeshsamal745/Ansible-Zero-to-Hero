@@ -1,3 +1,7 @@
 #SPDX-License-Identifier: MIT-0
 ---
 # handlers file for roles/monitoring
+- name: Restart CloudWatch Agent
+  ansible.builtin.systemd:
+    name: amazon-cloudwatch-agent
+    state: restarted

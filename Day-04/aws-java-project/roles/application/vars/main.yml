@@ -1,3 +1,6 @@
 #SPDX-License-Identifier: MIT-0
 ---
 # vars file for roles/application
+app_service_name: abc-order-service
+app_properties_file: "{{ app_config_dir }}/application.properties"
+app_service_file: "/etc/systemd/system/{{ app_service_name }}.service"
