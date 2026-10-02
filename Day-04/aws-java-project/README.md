@@ -21,21 +21,3 @@ It bridges the gap between basic configuration management and enterprise SRE pra
 ## 🏗️ Architecture & Deployment Flow
 
 ### Infrastructure Topology
-
-subgraph "AWS Cloud"
-    S3[(AWS S3 <br/> Versioned Artifacts)]
-    IAM{{IAM Instance Role <br/> Least Privilege}}
-    
-    subgraph "EC2 Fleet (Ubuntu 24.04)"
-        Nginx[Nginx :80 <br/> Reverse Proxy] -->|Internal Proxy| Java[Java App :8080 <br/> Spring Boot]
-        CW[CloudWatch Agent <br/> Metrics & Logs]
-    end
-    
-    SG[Security Groups <br/> Port 80 Public / 8080 Private]
-end
-
-A -->|1. SSH Provisioning| EC2
-V -.->|2. Decrypt Secrets| A
-IAM -->|3. Temp Credentials| S3
-S3 -->|4. Pull JAR| Java
-EC2 -->|5. Push Telemetry| CW
