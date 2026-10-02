@@ -21,3 +21,4 @@ It bridges the gap between basic configuration management and enterprise SRE pra
 ## 🏗️ Architecture & Deployment Flow
 
 ### Infrastructure Topology
+<img width="420" height="308" alt="image" src="https://github.com/user-attachments/assets/4e78f726-a25a-4b87-9bc2-5d6b53f8a827" />
