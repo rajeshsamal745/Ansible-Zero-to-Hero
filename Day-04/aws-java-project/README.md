@@ -1,24 +1,90 @@
-# 🚀 Enterprise Java Order Management: AWS & Ansible Automation
+# 🚀 Enterprise Java Order Management Deployment on AWS using Ansible
 
-[![Ansible](https://img.shields.io/badge/Ansible-2.15%2B-EE0000?logo=ansible&logoColor=white)](https://www.ansible.com/)
-[![AWS](https://img.shields.io/badge/AWS-EC2%20%7C%20S3%20%7C%20IAM%20%7C%20CloudWatch-FF9900?logo=amazonaws&logoColor=white)](https://aws.amazon.com/)
-[![Java](https://img.shields.io/badge/Java-OpenJDK%2017-ED8B00?logo=openjdk&logoColor=white)](https://openjdk.org/)
-[![Nginx](https://img.shields.io/badge/Nginx-Reverse%20Proxy-009639?logo=nginx&logoColor=white)](https://www.nginx.com/)
-[![Ubuntu](https://img.shields.io/badge/Ubuntu-24.04%20LTS-E95420?logo=ubuntu&logoColor=white)](https://ubuntu.com/)
+[![Ansible](https://img.shields.io/badge/Ansible-2.21-red?logo=ansible)](https://www.ansible.com/)
+[![AWS](https://img.shields.io/badge/AWS-EC2%20%7C%20S3%20%7C%20CloudWatch-orange?logo=amazonaws)](https://aws.amazon.com/)
+[![Java](https://img.shields.io/badge/Java-17-blue?logo=openjdk)](https://openjdk.org/)
+[![Nginx](https://img.shields.io/badge/Nginx-Reverse%20Proxy-green?logo=nginx)](https://nginx.org/)
+[![Linux](https://img.shields.io/badge/Linux-Ubuntu-orange?logo=ubuntu)](https://ubuntu.com/)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
-> **Production-oriented DevOps project** demonstrating reusable Ansible roles, automated Java application deployment, zero-downtime rolling releases, infrastructure drift correction, and secure secret management on AWS.
+> Production-oriented AWS DevOps project demonstrating reusable Ansible roles,
+> dynamic AWS inventory, automated Java application deployment, rolling releases,
+> health checks, monitoring, security hardening, and rollback capabilities.
 
 ---
 
-## 📖 Executive Summary
-This repository contains the end-to-end automation framework for deploying and managing a Java-based Order Management application on AWS. Instead of simple scripting, this project utilizes **modular Ansible Roles** to enforce infrastructure as code (IaC) principles, ensuring idempotency, security hardening, and high availability. 
+## 📌 Project Overview
 
-It bridges the gap between basic configuration management and enterprise SRE practices by implementing **rolling deployments, automated health-check gatekeeping, AWS IAM least-privilege access, and Ansible Vault for secrets.**
+This project automates the deployment and lifecycle management of a Java-based
+Order Management application running on Ubuntu EC2 instances in AWS.
+
+The infrastructure is managed using **Ansible Roles** with a focus on:
+
+- Infrastructure automation
+- Configuration management
+- Application deployment
+- Environment-specific configuration
+- AWS dynamic inventory
+- Rolling deployments
+- Application health validation
+- Failure handling
+- Rollback
+- CloudWatch monitoring
+- Ansible Vault
+- Idempotency
+- Reusable infrastructure code
+
+The project is designed to demonstrate how a traditional Ansible deployment
+can evolve into a more production-oriented AWS deployment architecture.
 
 ---
 
-## 🏗️ Architecture & Deployment Flow
+# 🏗️ Architecture
 
-### Infrastructure Topology
-<img width="420" height="308" alt="image" src="https://github.com/user-attachments/assets/4e78f726-a25a-4b87-9bc2-5d6b53f8a827" />
+```mermaid
+flowchart TB
+
+    Developer[Developer / DevOps Engineer]
+
+    GitHub[GitHub Repository]
+
+    Ansible[Ansible Control Node]
+
+    AWS[AWS]
+
+    EC2[EC2 Instances]
+
+    App01[App01]
+    App02[App02]
+
+    Nginx[Nginx]
+    Java[Java 17]
+    App[Spring Boot Order Service]
+    CW[CloudWatch Agent]
+
+    S3[S3 Artifact Repository]
+
+    Developer --> GitHub
+    GitHub --> Ansible
+
+    Ansible --> AWS
+
+    AWS --> EC2
+
+    EC2 --> App01
+    EC2 --> App02
+
+    App01 --> Nginx
+    App01 --> Java
+    App01 --> App
+    App01 --> CW
+
+    App02 --> Nginx
+    App02 --> Java
+    App02 --> App
+    App02 --> CW
+
+    S3 --> App01
+    S3 --> App02
+
+    CW --> AWS
