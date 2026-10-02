@@ -87,4 +87,86 @@ flowchart TB
     S3 --> App01
     S3 --> App02
 
+
+🔄 Dynamic Inventory Architecture
+
+The project supports AWS EC2 dynamic inventory using EC2 tags.
+
+AWS EC2
+   │
+   ├── Environment=dev
+   ├── Application=order-service
+   └── Role=app
+          │
+          ▼
+   AWS Dynamic Inventory
+          │
+          ▼
+     app_servers
+          │
+     ┌────┴────┐
+     ▼         ▼
+   App01      App02
+
+This removes the need to manually maintain EC2 IP addresses in the inventory.
+
+🧩 Ansible Role Architecture
+
+The project is organized into reusable Ansible roles:
+
+roles/
+├── common/
+├── security/
+├── java/
+├── nginx/
+├── application/
+└── monitoring/
+Common
+
+Responsible for:
+
+System preparation
+Common packages
+Application user/group
+Application directories
+Timezone configuration
+Security
+
+Responsible for:
+
+SSH configuration
+Server hardening
+Java
+
+Responsible for:
+
+Java 17 installation
+JAVA_HOME configuration
+Java validation
+Nginx
+
+Responsible for:
+
+Nginx installation
+Reverse proxy configuration
+Application routing
+Configuration validation
+Application
+
+Responsible for:
+
+Application artifact download
+Application configuration
+Systemd service
+Application startup
+Application restart
+Health validation
+Monitoring
+
+Responsible for:
+
+CloudWatch Agent installation
+CloudWatch configuration
+Monitoring service management
+
     CW --> AWS
