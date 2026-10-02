@@ -1136,7 +1136,7 @@ Run a playbook with Vault:
 ```bash
 ansible-playbook \
   -i inventory/prod/hosts.ini \
-  playbooks/site.yml \
+  playbooks/common-test.yml \
   --ask-vault-pass
 ```
 
@@ -1258,7 +1258,7 @@ enterprise-java-order-management/
 │
 ├── playbooks/
 │   │
-│   ├── site.yml
+│   ├── common-test.yml
 │   ├── deploy.yml
 │   └── rollback.yml
 │
@@ -1312,7 +1312,7 @@ ansible \
 ```bash
 ansible-playbook \
   -i inventory/aws/dev.aws_ec2.yml \
-  playbooks/site.yml \
+  playbooks/common-test.yml \
   --syntax-check
 ```
 
@@ -1327,7 +1327,7 @@ ansible-lint
 ```bash
 ansible-playbook \
   -i inventory/aws/dev.aws_ec2.yml \
-  playbooks/site.yml \
+  playbooks/common-test.yml \
   --check
 ```
 
@@ -1336,7 +1336,7 @@ ansible-playbook \
 ```bash
 ansible-playbook \
   -i inventory/aws/dev.aws_ec2.yml \
-  playbooks/site.yml
+  playbooks/common-test.yml
 ```
 
 ## 7. Application Verification
@@ -1364,7 +1364,7 @@ Run the same playbook again:
 ```bash
 ansible-playbook \
   -i inventory/aws/dev.aws_ec2.yml \
-  playbooks/site.yml
+  playbooks/common-test.yml
 ```
 
 The second execution should report fewer or no changes when the system
@@ -1513,7 +1513,7 @@ tags:
 ```bash
 ansible-playbook \
   -i inventory/aws/dev.aws_ec2.yml \
-  playbooks/site.yml \
+  playbooks/common-test.yml \
   --list-tags
 ```
 
@@ -1522,7 +1522,7 @@ ansible-playbook \
 ```bash
 ansible-playbook \
   -i inventory/aws/dev.aws_ec2.yml \
-  playbooks/site.yml \
+  playbooks/common-test.yml \
   --tags java
 ```
 
@@ -2016,7 +2016,7 @@ ansible \
 ```bash
 ansible-playbook \
   -i inventory/aws/dev.aws_ec2.yml \
-  playbooks/site.yml \
+  playbooks/common-test.yml \
   --syntax-check
 ```
 
@@ -2031,7 +2031,7 @@ ansible-lint
 ```bash
 ansible-playbook \
   -i inventory/aws/dev.aws_ec2.yml \
-  playbooks/site.yml \
+  playbooks/common-test.yml \
   --check
 ```
 
@@ -2040,7 +2040,7 @@ ansible-playbook \
 ```bash
 ansible-playbook \
   -i inventory/aws/dev.aws_ec2.yml \
-  playbooks/site.yml
+  playbooks/common-test.yml
 ```
 
 ## 12. Verify
