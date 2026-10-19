@@ -1,0 +1,8 @@
+---
+security_group_name: order-management-sg
+security_group_description: "Security group for Order Management application"
+allowed_ssh_cidr:
+  - 0.0.0.0/0
+allowed_http_cidr:
+  - 0.0.0.0/0
+

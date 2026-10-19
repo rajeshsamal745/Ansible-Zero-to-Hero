@@ -1,0 +1,32 @@
+---
+# tasks file for aws_security_group
+- name: Create application security group
+  amazon.aws.ec2_security_group:
+    name: "{{ security_group_name }}"
+    description: "{{ security_group_description }}"
+    region: "{{ aws_region }}"
+    rules:
+      - proto: tcp
+        ports:
+          - 22
+        cidr_ip: "{{ allowed_ssh_cidr | first }}"
+        rule_desc: SSH access
+
+      - proto: tcp
+        ports:
+          - 80
+        cidr_ip: "{{ allowed_http_cidr | first }}"
+        rule_desc: HTTP access
+
+      - proto: tcp
+        ports:
+          - "{{ application_port | int }}"
+        cidr_ip: "{{ allowed_http_cidr | first }}"
+        rule_desc: Application access
+  register: security_group_result
+
+- name: Display security group
+  ansible.builtin.debug:
+    msg:
+      - "Security Group ID: {{ security_group_result.group_id }}"
+

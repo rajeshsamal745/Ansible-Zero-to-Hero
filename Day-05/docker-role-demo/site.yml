@@ -1,0 +1,36 @@
+---
+- name: Deploy and configure Docker across multi-OS EC2 cluster
+  hosts: role_docker
+  become: true
+  gather_facts: true
+
+  pre_tasks:
+
+    - name: Display target operating system
+      ansible.builtin.debug:
+        msg: "Targeting {{ inventory_hostname }} running {{ ansible_os_family }}"
+
+  roles:
+    - role: ../docker
+
+  post_tasks:
+
+    - name: Verify Docker service
+      ansible.builtin.service_facts:
+
+    - name: Validate Docker service is running
+      ansible.builtin.assert:
+        that:
+          - ansible_facts.services['docker.service'].state == 'running'
+        fail_msg: "Docker service is not running on {{ inventory_hostname }}"
+        success_msg: "Docker service is running on {{ inventory_hostname }}"
+
+    - name: Check Docker version
+      ansible.builtin.command:
+        cmd: docker --version
+      changed_when: false
+      register: docker_version
+
+    - name: Display Docker version
+      ansible.builtin.debug:
+        msg: "{{ docker_version.stdout }}"

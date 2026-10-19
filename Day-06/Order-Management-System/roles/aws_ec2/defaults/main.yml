@@ -1,0 +1,16 @@
+#SPDX-License-Identifier: MIT-0
+---
+# defaults file for aws_ec2
+# Choose this version:
+ec2_instance_type: t3.micro
+ec2_instance_count: 1
+ec2_volume_size: 20
+ec2_volume_type: gp3
+ec2_wait: true
+ec2_assign_public_ip: true
+ec2_name_prefix: order-management
+ami_id: ""
+subnet_id: ""
+security_group_id: ""
+key_name: ""
+

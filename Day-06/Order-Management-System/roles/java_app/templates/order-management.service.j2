@@ -1,0 +1,20 @@
+[Unit]
+Description=Order Management Spring Boot Application
+After=network.target
+
+[Service]
+User=orderapp
+Group=orderapp
+
+WorkingDirectory=/opt/order-management
+
+ExecStart=/usr/bin/java -jar /opt/order-management/order-management.jar
+
+Environment="SPRING_PROFILES_ACTIVE={{ environment }}"
+Environment="SERVER_PORT={{ application_port }}"
+
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target

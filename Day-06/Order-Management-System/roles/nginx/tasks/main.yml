@@ -1,0 +1,25 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for nginx
+- name: Install Nginx
+  become: true
+  ansible.builtin.apt:
+    name: nginx
+    state: present
+    update_cache: true
+
+- name: Configure Order Management reverse proxy
+  become: true
+  ansible.builtin.template:
+    src: order-management.conf.j2
+    dest: /etc/nginx/sites-available/order-management.conf
+    mode: "0644"
+  notify: Restart nginx
+
+- name: Enable site
+  become: true
+  ansible.builtin.file:
+    src: /etc/nginx/sites-available/order-management.conf
+    dest: /etc/nginx/sites-enabled/order-management.conf
+    state: link
+  notify: Restart nginx

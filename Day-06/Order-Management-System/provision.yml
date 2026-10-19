@@ -1,0 +1,19 @@
+---
+- name: Provision AWS infrastructure
+  hosts: localhost
+  connection: local
+  gather_facts: false
+
+  vars_files:
+    - vault/aws_credentials.yml
+
+  vars:
+    ami_id: "ami-007020fd9c84e18c7"
+    subnet_id: "subnet-0aa2a3e3f516e8ae6"
+    key_name: "ansible-key"
+
+  roles:
+    - role: aws_security_group
+    - role: aws_ec2
+      security_group_id: "{{ security_group_result.group_id }}"
+

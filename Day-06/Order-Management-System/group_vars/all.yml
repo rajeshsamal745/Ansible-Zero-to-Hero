@@ -1,0 +1,9 @@
+---
+project_name: order-management
+deployment_env: dev
+aws_region: ap-south-1
+application_name: order-management
+application_port: 8080
+nginx_port: 80
+java_version: "17"
+owner: devops-team

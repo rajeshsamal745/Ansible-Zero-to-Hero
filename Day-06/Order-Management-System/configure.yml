@@ -1,0 +1,12 @@
+---
+- name: Configure application servers
+  hosts: application_order_management
+  become: true
+
+  roles:
+
+    - role: common
+
+    - role: java_app
+
+    - role: nginx

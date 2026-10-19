@@ -1,0 +1,24 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for common
+# -------------------------------------------------------------------------
+# TASK 1: Update the local package manager registry (equivalent to apt update)
+# -------------------------------------------------------------------------
+- name: Update apt cache
+  become: true
+  ansible.builtin.apt:
+    update_cache: true
+    cache_valid_time: 3600
+
+# -------------------------------------------------------------------------
+# TASK 2: Install essential command-line utility tools if missing
+# -------------------------------------------------------------------------
+- name: Install required packages
+  become: true
+  ansible.builtin.apt:
+    name:
+      - curl
+      - unzip
+      - wget
+      - ca-certificates
+    state: present

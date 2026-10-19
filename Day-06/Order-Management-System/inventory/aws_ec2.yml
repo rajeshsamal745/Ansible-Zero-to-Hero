@@ -1,0 +1,27 @@
+---
+plugin: amazon.aws.aws_ec2
+
+regions:
+  - ap-south-1
+
+filters:
+  tag:Project: order-management
+  instance-state-name:
+    - running
+
+hostnames:
+  - ip-address
+  - public-dns-name
+
+compose:
+  ansible_host: public_ip_address
+
+keyed_groups:
+  - key: tags.Environment
+    prefix: environment
+
+  - key: tags.Application
+    prefix: application
+
+  - key: tags.Project
+    prefix: project

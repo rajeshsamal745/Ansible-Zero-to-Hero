@@ -1,0 +1,37 @@
+---
+plugin: amazon.aws.aws_ec2
+
+regions:
+  - ap-southeast-2
+
+filters:
+  instance-state-name:
+    - running
+
+  tag:Application:
+    - ansible-day05
+
+keyed_groups:
+
+  - key: ec2_tags.Environment
+    prefix: env
+    separator: "_"
+
+  - key: ec2_tags.Application
+    prefix: app
+    separator: "_"
+
+  - key: ec2_tags.Role
+    prefix: role
+    separator: "_"
+
+  - key: ec2_tags.OS
+    prefix: os
+    separator: "_"
+
+  - key: ec2_tags.Name
+    prefix: name
+    separator: "_"
+
+compose:
+  ansible_host: public_ip_address

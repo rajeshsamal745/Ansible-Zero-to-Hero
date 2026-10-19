@@ -1,0 +1,51 @@
+#SPDX-License-Identifier: MIT-0
+---
+# tasks file for aws_ec2
+# -------------------------------------------------------------------------
+# TASK 1: Pre-flight safety check to ensure mandatory variables are provided
+# -------------------------------------------------------------------------
+- name: Validate required EC2 variables
+  ansible.builtin.assert:
+    that:
+      - ami_id | length > 0
+      - subnet_id | length > 0
+      - security_group_id | length > 0
+      - key_name | length > 0
+    fail_msg: >
+      ami_id, subnet_id, security_group_id and key_name
+      must be supplied.
+
+# -------------------------------------------------------------------------
+# TASK 2: Spin up the configured number of EC2 instances in AWS
+# -------------------------------------------------------------------------
+- name: Create EC2 instances
+  amazon.aws.ec2_instance:
+    name: "{{ ec2_name_prefix }}-{{ item }}"
+    region: "{{ aws_region }}"
+    image_id: "{{ ami_id }}"
+    instance_type: "{{ ec2_instance_type }}"
+    key_name: "{{ key_name }}"
+    vpc_subnet_id: "{{ subnet_id }}"
+    security_group: "{{ security_group_id }}"
+    wait: "{{ ec2_wait }}"
+
+    network:
+      assign_public_ip: "{{ ec2_assign_public_ip }}"
+
+    volumes:
+      - device_name: /dev/sda1
+        ebs:
+          volume_size: "{{ ec2_volume_size }}"
+          volume_type: "{{ ec2_volume_type }}"
+          delete_on_termination: true
+
+    tags:
+      Name: "{{ ec2_name_prefix }}-{{ item }}"
+      Project: "{{ project_name }}"
+      Environment: "{{ environment }}"
+      Application: "{{ application_name }}"
+      ManagedBy: Ansible
+      Owner: "{{ owner }}"
+
+  loop: "{{ range(1, ec2_instance_count + 1) | list }}"
+  register: ec2_instances
